@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%; /* para não estourar o conteine  */
+}
+
+.slide-wrapper {
+  overflow: hidden;
+}
+
+.slide {
+  display: flex;
+}
+.slide li {
+  /* o flex-shrink faz com que eles diminua para caber dentro do conteine, paraa não acontecer isso eu coloco como 0 */
+  flex-shrink: 0; 
+  width: 80vw;/* vai ter 80% da tela */
+  max-width: 800px;
+  margin: 0 20px;
+}
