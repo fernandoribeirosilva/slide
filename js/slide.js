@@ -60,9 +60,46 @@ export default class Slide {
     this.onEnd = this.onEnd.bind(this);
   }
 
+  // Slides config
+  slidePosition(slide) {// colocar o lemento no centro
+    //this.wrapper.offsetWidth pega o total 
+    const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
+    return -(slide.offsetLeft - margin);// este valor vai ser megativo para ele fica no centro
+  }
+
+  slidesConfig() {
+    // tranformar em array
+    this.slidesArray = [...this.slide.children].map((element) => {
+      const position = this.slidePosition(element);// mostra a possição do elemento
+      return {
+        position,
+        element
+      }
+    });
+  }
+
+  // muda o slide
+
+  slidesIndexNav(index) {
+    const last = this.slidesArray.length - 1;// tamanho da minha array de imagen
+    this.index = {
+      aterior: index === last ?  index - 1 : undefined,
+      active: index,
+      next: index === last ? undefined : index + 1,
+    }
+  }
+
+  changeSlide(index) {
+    const activeSlide = this.slidesArray[index];
+    this.moveSlide(activeSlide.position);
+    this.slidesIndexNav(index);
+    this.dist.finalPosition = activeSlide.position;
+  }
+
   init() {
     this.bindEvents();
     this.addSlideEvent();
+    this.slidesConfig();
     return this;
   }
 }
