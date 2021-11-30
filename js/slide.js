@@ -1,6 +1,6 @@
 import debounce from './debounce.js';
 
-export default class Slide {
+export class Slide {
   constructor(slide, wrapper) {
     this.slide = document.querySelector(slide);
     this.wrapper = document.querySelector(wrapper);
@@ -77,7 +77,7 @@ export default class Slide {
   }
 
   // Slides config
-  slidePosition(slide) {// colocar o lemento no centro
+  slidePosition(slide) {// colocar o lemento no centr
     //this.wrapper.offsetWidth pega o total 
     const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
     return -(slide.offsetLeft - margin);// este valor vai ser megativo para ele fica no centro
@@ -95,7 +95,6 @@ export default class Slide {
   }
 
   // muda o slide
-
   slidesIndexNav(index) {
     const last = this.slidesArray.length - 1;// tamanho da minha array de imagen
     this.index = {
@@ -149,6 +148,9 @@ export default class Slide {
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
 
+    this.activePrevSlide = this.activePrevSlide.bind(this);
+    this.activeNextSlide = this.activeNextSlide.bind(this);
+
     this.onResize = debounce(this.onResize.bind(this), 50);
   }
 
@@ -158,6 +160,20 @@ export default class Slide {
     this.addSlideEvent();
     this.slidesConfig();
     this.addResizeEvent();
+    this.changeSlide(0);
     return this;
+  }
+}
+
+export class SlideNav extends Slide {
+  addArraow(prev, next) {
+    this.prevElement = document.querySelector(prev);
+    this.nextElement = document.querySelector(next);
+    this.addArraowEvent();
+  }
+
+  addArraowEvent() {
+    this.prevElement.addEventListener('click', this.activePrevSlide);
+    this.nextElement.addEventListener('click', this.activeNextSlide);
   }
 }
