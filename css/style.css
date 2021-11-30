@@ -17,10 +17,27 @@ img {
 .slide {
   display: flex;
 }
+
+.slide:hover {
+  will-change: transform;/* esta propriedade mostra para o brawser que vai mudar*/
+}
+
 .slide li {
   /* o flex-shrink faz com que eles diminua para caber dentro do conteine, paraa não acontecer isso eu coloco como 0 */
   flex-shrink: 0; 
   width: 80vw;/* vai ter 80% da tela */
   max-width: 800px;
   margin: 0 20px;
+
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+  opacity: .8;
+  transform: scale(.8);
+  transition: .4s;
+}
+
+.slide li.active {
+  opacity: 1;
+  transform: scale(1);
 }
